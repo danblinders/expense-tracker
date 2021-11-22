@@ -4,24 +4,32 @@ import Summary from '../summary/Summary';
 import AddTransactionForm from '../addTransactionForm/AddTransactionForm';
 
 function App() {
-  const [income, setIncome] = useState(sessionStorage.getItem('balance') || 0);
-  const [expense, setExpense] = useState(sessionStorage.getItem('balance') || 0);
+  const [income, setIncome] = useState(sessionStorage.getItem('income') || 0);
+  const [expense, setExpense] = useState(sessionStorage.getItem('expense') || 0);
 
   const balance = income - expense;
 
   const changeIncome = (newIncome) => {
-    setIncome(income => income + newIncome);
+    setIncome(income => {
+      const updatedIncome = +income + newIncome;
+      sessionStorage.setItem('income', updatedIncome);
+      return updatedIncome;
+    });
   };
 
   const changeExpense = (newExpense) => {
-    setExpense(expense => expense + Math.abs(newExpense));
+    setExpense(expense => {
+      const updatedExpense = +expense + Math.abs(newExpense);
+      sessionStorage.setItem('expense', updatedExpense);
+      return updatedExpense;
+    });
   };
 
   return (
     <div className={styles.app}>
       <h1 className="app__title">Expense Tracker</h1>
       <Summary balance={balance} income={income} expense={expense}/>
-      <AddTransactionForm setIncome={changeIncome} setExpense={changeExpense}/>
+      <AddTransactionForm updateIncome={changeIncome} updateExpense={changeExpense}/>
     </div>
   );
 }

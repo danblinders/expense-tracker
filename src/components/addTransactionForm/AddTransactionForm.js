@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import './addTransaction.module.css';
 
-const AddTransactionForm = ({setIncome, setExpense}) => {
+const AddTransactionForm = ({updateIncome, updateExpense}) => {
   const amountInput = useRef(null);
 
   const handleSumbit = (e) => {
@@ -9,11 +9,11 @@ const AddTransactionForm = ({setIncome, setExpense}) => {
     const amountInputValue = +amountInput.current.value;
 
     if (amountInputValue > 0) {
-      setIncome(amountInputValue);
+      updateIncome(amountInputValue);
       return;
     }
 
-    setExpense(amountInputValue);
+    updateExpense(amountInputValue);
   };
 
   return (
@@ -25,7 +25,7 @@ const AddTransactionForm = ({setIncome, setExpense}) => {
           <input type="text" className="transaction-form__input" name="text" />
         </label>
         <label className="transaction-form__field">
-          <span className="transaction-form__label"> 
+          <span className="transaction-form__label">
             Amount <br />
             (negative - expense, positive - income)
           </span>

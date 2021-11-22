@@ -1,12 +1,20 @@
 import { useRef } from 'react';
-import './addTransaction.module.css';
+import styles from './addTransaction.module.css';
 
-const AddTransactionForm = ({updateIncome, updateExpense}) => {
+const AddTransactionForm = ({historyItems, updateIncome, updateExpense}) => {
+  const textInput = useRef(null);
   const amountInput = useRef(null);
 
   const handleSumbit = (e) => {
     e.preventDefault();
+
     const amountInputValue = +amountInput.current.value;
+
+    historyItems.push({
+      id: Math.random(100),
+      text: textInput.current.value,
+      amount: amountInputValue >= 0 ? `+${amountInputValue}` : amountInputValue
+    });
 
     if (amountInputValue > 0) {
       updateIncome(amountInputValue);
@@ -22,7 +30,7 @@ const AddTransactionForm = ({updateIncome, updateExpense}) => {
       <form action="" className="transaction-form__container">
         <label className="transaction-form__field">
           <span className="transaction-form__label">Text</span>
-          <input type="text" className="transaction-form__input" name="text" />
+          <input type="text" ref={textInput} className="transaction-form__input" name="text" />
         </label>
         <label className="transaction-form__field">
           <span className="transaction-form__label">

@@ -2,6 +2,9 @@ import { useState } from 'react';
 import styles from './app.module.css';
 import Summary from '../summary/Summary';
 import AddTransactionForm from '../addTransactionForm/AddTransactionForm';
+import HistoryList from '../historyList/HistoryList';
+
+let history = [];
 
 function App() {
   const [income, setIncome] = useState(sessionStorage.getItem('income') || 0);
@@ -29,7 +32,8 @@ function App() {
     <div className={styles.app}>
       <h1 className="app__title">Expense Tracker</h1>
       <Summary balance={balance} income={income} expense={expense}/>
-      <AddTransactionForm updateIncome={changeIncome} updateExpense={changeExpense}/>
+      <HistoryList items={history}/>
+      <AddTransactionForm historyItems={history} updateIncome={changeIncome} updateExpense={changeExpense}/>
     </div>
   );
 }

@@ -1,6 +1,10 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { ref, push, set } from '@firebase/database';
+import database from '../../service/firebase';
 import styles from './addTransaction.module.css';
+
+const historyRef = push(ref(database, '/history'));
 
 const AddTransactionForm = ({historyItems, updateIncome, updateExpense}) => {
 
@@ -15,6 +19,12 @@ const AddTransactionForm = ({historyItems, updateIncome, updateExpense}) => {
     const amountInputValue = +amount;
 
     historyItems.push({
+      id: Math.random(100),
+      text,
+      amount: amountInputValue,
+    });
+
+    set(historyRef, {
       id: Math.random(100),
       text,
       amount: amountInputValue,
@@ -42,7 +52,7 @@ const AddTransactionForm = ({historyItems, updateIncome, updateExpense}) => {
             Amount <br />
             (negative - expense, positive - income)
           </span>
-          <input type="text" className="transaction-form__input" value={amount} {...register('amount', {required: true})} onChange={(e) => setAmount(e.currentTarget.value)} />
+          <input type="number" className="transaction-form__input" value={amount} {...register('amount', {required: {value: true}})} onChange={(e) => setAmount(e.currentTarget.value)} />
           {errors.amount && <span>Amount is required</span>}
         </label>
         <button className="transaction-form__submit">Add transaction</button>

@@ -1,0 +1,50 @@
+.container {
+  margin-bottom: 3rem;
+}
+
+.balance {
+  margin-bottom: 2rem;
+}
+
+.balance__subtitle {
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  font-size: 2rem;
+}
+
+.balance__count {
+  font-size: 1.8rem;
+}
+
+.details {
+  display: flex;
+  justify-content: space-between;
+}
+
+.details__unit {
+  width: 50%;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.details__subtitle_green {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: hsl(120, 96%, 21%);
+}
+
+.details__subtitle_red {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: hsl(7, 100%, 31%);
+}
+
+.details-count {
+  font-size: 1.8rem;
+}
+
+.details__separator {
+  width: 3px;
+  margin: 0 0.2rem;
+  background-color: hsl(0, 0%, 41%);
+}

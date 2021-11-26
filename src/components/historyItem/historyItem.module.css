@@ -1,0 +1,17 @@
+.item {
+  padding: 2rem 0;
+  border-bottom: 1px solid hsl(0, 0%, 41%);
+}
+
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.text {
+  padding: 0 0.5rem;
+}
+
+.count {
+  padding: 0 0.5rem;
+}

@@ -39,23 +39,23 @@ const AddTransactionForm = ({historyItems, updateIncome, updateExpense}) => {
   };
   
   return (
-    <div className="transaction-form" onSubmit={handleSubmit(onSubmit)}>
-      <h2 className="transaction-form__subtitle">Add new transaction</h2>
-      <form action="#" className="transaction-form__container">
-        <label className="transaction-form__field">
-          <span className="transaction-form__label">Text</span>
-          <input type="text" className="transaction-form__input" value={text} {...register('text', {required: true})} onChange={(e) => setText(e.currentTarget.value)} />
+    <div className={styles.container} onSubmit={handleSubmit(onSubmit)}>
+      <h2 className={styles.subtitle}>Add new transaction</h2>
+      <form action="#" className={styles.wrapper}>
+        <label className={styles.field}>
+          <span className={styles.label}>Text</span>
+          <input type="text" className={styles.input} value={text} {...register('text', {required: true})} onChange={(e) => setText(e.currentTarget.value)} />
           {errors.text && <span>Text is required</span>}
         </label>
-        <label className="transaction-form__field">
-          <span className="transaction-form__label">
+        <label className={styles.field}>
+          <span className={styles.label}>
             Amount <br />
             (negative - expense, positive - income)
           </span>
-          <input type="number" className="transaction-form__input" value={amount} {...register('amount', {required: {value: true}})} onChange={(e) => setAmount(e.currentTarget.value)} />
+          <input type="number" className={styles.input} value={amount} {...register('amount', {required: {value: true}})} onChange={(e) => setAmount(e.currentTarget.value)} />
           {errors.amount && <span>Amount is required</span>}
         </label>
-        <button className="transaction-form__submit">Add transaction</button>
+        <button className={styles.submit}>Add transaction</button>
       </form>
     </div>
   );

@@ -1,0 +1,36 @@
+.subtitle {
+  margin-bottom: 1rem;
+  font-size: 2rem;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  margin-bottom: 0.5rem;
+}
+
+.input {
+  padding: 1rem;
+  width: 100%;
+  font-size: 1.4rem;
+}
+
+.submit {
+  border: none;
+  outline: none;
+  padding: 1rem;
+  margin-top: 1.5rem;
+  border-radius: 40px;
+  background-color: hsl(16, 100%, 75%);
+  font-size: 1.8rem;
+  color: hsl(0, 0%, 100%);
+  cursor: pointer;
+}

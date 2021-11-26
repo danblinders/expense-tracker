@@ -1,0 +1,12 @@
+.list {
+  margin-bottom: 3rem;
+}
+
+.subtitle {
+  margin-bottom: 1rem;
+  font-size: 2rem;
+}
+
+.items {
+  list-style: none;
+}

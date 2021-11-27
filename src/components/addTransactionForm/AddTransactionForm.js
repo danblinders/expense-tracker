@@ -6,7 +6,7 @@ import styles from './addTransaction.module.css';
 
 const AddTransactionForm = ({updateHistory}) => {
   const historyRef = push(ref(database, '/history'));
-  
+
   const [text, setText] = useState('');
   const [amount, setAmount] = useState('');
   
@@ -40,7 +40,7 @@ const AddTransactionForm = ({updateHistory}) => {
       <form action="#" className={styles.wrapper}>
         <label className={styles.field}>
           <span className={styles.label}>Text</span>
-          <input type="text" className={styles.input} value={text} {...register('text', {required: true})} onChange={(e) => setText(e.currentTarget.value)} />
+          <input type="text" className={styles.input} {...register('text', {required: true})} onChange={(e) => setText(e.currentTarget.value)} />
           {errors.text && <span>Text is required</span>}
         </label>
         <label className={styles.field}>
@@ -48,7 +48,7 @@ const AddTransactionForm = ({updateHistory}) => {
             Amount <br />
             (negative - expense, positive - income)
           </span>
-          <input type="number" className={styles.input} value={amount} {...register('amount', {required: {value: true}})} onChange={(e) => setAmount(e.currentTarget.value)} />
+          <input type="number" className={styles.input} {...register('amount', {required: {value: true}})} onChange={(e) => setAmount(e.currentTarget.value)} />
           {errors.amount && <span>Amount is required</span>}
         </label>
         <button className={styles.submit}>Add transaction</button>

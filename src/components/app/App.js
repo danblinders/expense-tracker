@@ -7,11 +7,20 @@ import AddTransactionForm from '../addTransactionForm/AddTransactionForm';
 import HistoryList from '../historyList/HistoryList';
 
 function App() {
-  const [income, setIncome] = useState(sessionStorage.getItem('income') ?? 0);
-  const [expense, setExpense] = useState(sessionStorage.getItem('expense') ?? 0);
   const [history, setHistory] = useState(null);
 
-  const balance = income - expense;
+  let income = 0, expense = 0;
+
+  history?.forEach(item => {
+    const itemAmount = +item.amount;
+    if (itemAmount >= 0) {
+      income += itemAmount;
+    } else {
+      expense += itemAmount;
+    }
+  });
+
+  const balance = income + expense;
 
   useEffect(() => {
     get(child(ref(database), '/history')).then(snapshot => {
@@ -25,28 +34,12 @@ function App() {
     });
   }, []);
 
-  const changeIncome = (newIncome) => {
-    setIncome(income => {
-      const updatedIncome = +income + newIncome;
-      sessionStorage.setItem('income', updatedIncome);
-      return updatedIncome;
-    });
-  };
-
-  const changeExpense = (newExpense) => {
-    setExpense(expense => {
-      const updatedExpense = +expense + Math.abs(newExpense);
-      sessionStorage.setItem('expense', updatedExpense);
-      return updatedExpense;
-    });
-  };
-
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Expense Tracker</h1>
       <Summary balance={balance} income={income} expense={expense}/>
       <HistoryList items={history}/>
-      <AddTransactionForm historyItems={history} updateIncome={changeIncome} updateExpense={changeExpense}/>
+      <AddTransactionForm updateHistory={setHistory}/>
     </div>
   );
 }

@@ -1,42 +1,38 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { ref, push, set } from '@firebase/database';
 import database from '../../service/firebase';
 import styles from './addTransaction.module.css';
 
-const historyRef = push(ref(database, '/history'));
-
-const AddTransactionForm = ({historyItems, updateIncome, updateExpense}) => {
-
+const AddTransactionForm = ({updateHistory}) => {
+  const historyRef = push(ref(database, '/history'));
+  
   const [text, setText] = useState('');
   const [amount, setAmount] = useState('');
   
-  const {register, formState: { errors }, handleSubmit} = useForm();
+  const {register, reset, formState: { errors, isSubmitSuccessful }, handleSubmit} = useForm({text: '', amount: ''});
 
   const onSubmit = (data, e) => {
     e.preventDefault();
 
     const amountInputValue = +amount;
 
-    historyItems.push({
+    const newHistoryItem = {
       id: Math.random(100),
       text,
       amount: amountInputValue,
-    });
+    };
 
-    set(historyRef, {
-      id: Math.random(100),
-      text,
-      amount: amountInputValue,
-    });
+    set(historyRef, newHistoryItem);
 
-    if (amountInputValue > 0) {
-      updateIncome(amountInputValue);
-      return;
-    }
-
-    updateExpense(amountInputValue);
+    updateHistory(prevHistory => [...prevHistory, newHistoryItem]);
   };
+
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset({text: '', amount: ''});
+    }
+  }, [isSubmitSuccessful, reset]);
   
   return (
     <div className={styles.container} onSubmit={handleSubmit(onSubmit)}>

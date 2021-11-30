@@ -38,19 +38,21 @@ const AddTransactionForm = ({updateHistory}) => {
     <div className={styles.container} onSubmit={handleSubmit(onSubmit)}>
       <h2 className={styles.subtitle}>Add new transaction</h2>
       <form action="#" className={styles.wrapper}>
-        <label className={styles.field}>
-          <span className={styles.label}>Text</span>
-          <input type="text" className={styles.input} {...register('text', {required: true})} onChange={(e) => setText(e.currentTarget.value)} />
-          {errors.text && <span>Text is required</span>}
-        </label>
-        <label className={styles.field}>
-          <span className={styles.label}>
-            Amount <br />
-            (negative - expense, positive - income)
-          </span>
-          <input type="number" className={styles.input} {...register('amount', {required: {value: true}})} onChange={(e) => setAmount(e.currentTarget.value)} />
-          {errors.amount && <span>Amount is required</span>}
-        </label>
+        <div className={styles.fields}>
+          <label className={styles.field}>
+            <span className={styles.label}>Text</span>
+            <input type="text" className={styles.input} {...register('text', {required: true})} onChange={(e) => setText(e.currentTarget.value)} />
+            {errors.text && <span>Text is required</span>}
+          </label>
+          <label className={styles.field}>
+            <span className={styles.label}>
+              Amount <br />
+              <span className={styles['secondary-text']}>(negative - expense, positive - income)</span>
+            </span>
+            <input type="number" className={styles.input} {...register('amount', {required: {value: true}})} onChange={(e) => setAmount(e.currentTarget.value)} />
+            {errors.amount && <span>Amount is required</span>}
+          </label>
+        </div>
         <button className={styles.submit}>Add transaction</button>
       </form>
     </div>

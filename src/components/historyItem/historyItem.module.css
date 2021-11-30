@@ -1,5 +1,5 @@
 .item {
-  padding: 2rem 0;
+  padding: 1rem 0;
   border-bottom: 1px solid hsl(0, 0%, 41%);
 }
 
@@ -14,4 +14,12 @@
 
 .count {
   padding: 0 0.5rem;
+}
+
+.count_green {
+  color: hsl(120, 96%, 21%);
+}
+
+.count_red {
+  color: hsl(7, 100%, 31%);
 }

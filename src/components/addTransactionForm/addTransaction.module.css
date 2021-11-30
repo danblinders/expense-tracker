@@ -1,11 +1,17 @@
 .subtitle {
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   font-size: 2rem;
 }
 
 .wrapper {
   display: flex;
   flex-direction: column;
+}
+
+.fields {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
 }
 
 .field {
@@ -15,10 +21,15 @@
 
 .label {
   margin-bottom: 0.5rem;
+  font-size: 1.6rem;
+}
+
+.secondary-text {
+  font-size: 1.2rem;
 }
 
 .input {
-  padding: 1rem;
+  padding: 0.5rem;
   width: 100%;
   font-size: 1.4rem;
 }
@@ -27,10 +38,10 @@
   border: none;
   outline: none;
   padding: 1rem;
-  margin-top: 1.5rem;
+  margin-top: 1rem;
   border-radius: 40px;
   background-color: hsl(16, 100%, 75%);
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   color: hsl(0, 0%, 100%);
   cursor: pointer;
 }

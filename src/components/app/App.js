@@ -4,7 +4,7 @@ import database from '../../service/firebase';
 import styles from './app.module.css';
 import Summary from '../summary/Summary';
 import AddTransactionForm from '../addTransactionForm/AddTransactionForm';
-import HistoryList from '../historyList/HistoryList';
+import HistoryPreview from '../historyPreview/HistoryPreview';
 
 function App() {
   const [history, setHistory] = useState(null);
@@ -38,7 +38,7 @@ function App() {
     <div className={styles.container}>
       <h1 className={styles.title}>Expense Tracker</h1>
       <Summary balance={balance} income={income} expense={expense}/>
-      <HistoryList items={history}/>
+      <HistoryPreview items={history}/>
       <AddTransactionForm updateHistory={setHistory}/>
     </div>
   );

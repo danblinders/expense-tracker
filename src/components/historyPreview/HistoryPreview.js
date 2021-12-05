@@ -4,23 +4,29 @@ import Spinner from '../spinner/Spinner';
 import HistoryItem from '../historyItem/HistoryItem';
 import FullHistoryList from '../fullHistoryList/FullHistoryList';
 
-const HistoryList = ({items}) => {
+const HistoryPreview = ({items}) => {
   const [isFullHistoryOpened, setIsFullHistoryOpened] = useState(false);
   let elementsList = [];
 
   if (items) {
-    for (let i = items.length - 1; i >= 0; i--) {
-      if (i < items.length - 3) {
+    const reversedHistoryDates = Object.keys(items).reverse();
+
+    for (let date of reversedHistoryDates) {
+      if (elementsList.length >= 3) {
         break;
       }
-      
-      const {id, ...props} = items[i];
-
-      const historyElement = <HistoryItem key={id} {...props}/>;
-
-      elementsList.push(historyElement);
+      for (let i = items[date].length - 1; i >= 0; i--) {
+        if (elementsList.length >= 3) {
+          break;
+        }
+        
+        const {id, ...props} = items[date][i];
+  
+        const historyElement = <HistoryItem key={id} {...props}/>;
+  
+        elementsList.push(historyElement);
+      }
     }
-
     elementsList.reverse();
   } else {
     elementsList = null;
@@ -30,7 +36,7 @@ const HistoryList = ({items}) => {
     <div className={styles.list}>
       <h2 className={styles.subtitle}>History</h2>
       {!items ? <Spinner/> : <View itemsList={elementsList}/>}
-      {items?.length > 3 ? <button onClick={() => {setIsFullHistoryOpened(true);}}>Open full History</button> : null}
+      {items ? <button onClick={() => {setIsFullHistoryOpened(true);}}>Open full History</button> : null}
       {isFullHistoryOpened ? <FullHistoryList setIsOpened={setIsFullHistoryOpened} items={items}/> : null}
     </div>
   );
@@ -44,4 +50,4 @@ const View = ({itemsList}) => {
   );
 };
 
-export default HistoryList;
+export default HistoryPreview;

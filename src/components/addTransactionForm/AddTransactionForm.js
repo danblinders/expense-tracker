@@ -5,8 +5,6 @@ import database from '../../service/firebase';
 import styles from './addTransaction.module.css';
 
 const AddTransactionForm = ({updateHistory}) => {
-  const historyRef = push(ref(database, '/history'));
-
   const [text, setText] = useState('');
   const [amount, setAmount] = useState('');
   
@@ -21,11 +19,26 @@ const AddTransactionForm = ({updateHistory}) => {
       id: Math.random(100),
       text,
       amount: amountInputValue,
+      timestamp: new Date().toJSON()
     };
 
-    set(historyRef, newHistoryItem);
+    const formattedItemDate = newHistoryItem.timestamp.slice(0, 10);
 
-    updateHistory(prevHistory => [...prevHistory, newHistoryItem]);
+    const dateRef = push(ref(database, `/history/${formattedItemDate}`));
+
+    set(dateRef, newHistoryItem);
+
+    updateHistory(prevHistory => {
+      let newHistory = {...prevHistory};
+
+      if (!newHistory[formattedItemDate]) {
+        newHistory[formattedItemDate] = [];
+      }
+
+      newHistory[formattedItemDate].push(newHistoryItem);
+
+      return newHistory;
+    });
   };
 
   useEffect(() => {

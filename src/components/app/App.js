@@ -11,26 +11,35 @@ function App() {
 
   let income = 0, expense = 0;
 
-  history?.forEach(item => {
-    const itemAmount = +item.amount;
-    if (itemAmount >= 0) {
-      income += itemAmount;
-    } else {
-      expense += itemAmount;
-    }
+  const historyDates = history ? Object.keys(history) : null;
+
+  historyDates?.forEach(date => {
+    history[date].forEach(item => {
+      const itemAmount = +item.amount;
+      if (itemAmount >= 0) {
+        income += itemAmount;
+      } else {
+        expense += itemAmount;
+      }
+    });
   });
 
   const balance = income + expense;
 
   useEffect(() => {
     get(child(ref(database), '/history')).then(snapshot => {
-      const newHistoryArr = [];
-
-      for (let key in snapshot.val()) {
-        newHistoryArr.push(snapshot.val()[key]);
+      const newHistoryObj= {};
+      for (let dateKey in snapshot.val()) {
+        if (Object.prototype.toString.call(snapshot.val()[dateKey]) === '[object Object]') {
+          newHistoryObj[dateKey] = [];
+          
+          for (let itemKey in snapshot.val()[dateKey]) {
+            newHistoryObj[dateKey].push(snapshot.val()[dateKey][itemKey]);
+          }
+        }
       }
 
-      setHistory(newHistoryArr);
+      setHistory(newHistoryObj);
     });
   }, []);
 

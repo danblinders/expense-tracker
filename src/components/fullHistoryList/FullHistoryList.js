@@ -6,20 +6,22 @@ const FullHistoryList = ({setIsOpened, items}) => {
 
   for(let item in items) {
     const newElem =
-      <div className="item">
-        <div className="item-date">{item}</div>
+      <ul className="full-history__list">
+        <div className="full-history-date">{item}</div>
         {items[item].map(({id, ...props}) => <HistoryItem key={id} {...props}/>)}
-      </div>;
+      </ul>;
       
     elementsList.push(newElem);
   }
 
+  elementsList.reverse();
+
   return (
     <div className="full-history">
       <button className="full-history__close" onClick={() => setIsOpened(false)}>Close</button>
-      <ul className="full-history__list">
+      <div className="full-history__container">
         {elementsList}
-      </ul>
+      </div>
     </div>
   );
 };

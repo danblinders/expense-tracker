@@ -1,4 +1,4 @@
-import './fullHistoryList.module.css';
+import styles from './fullHistoryList.module.css';
 import HistoryItem from '../historyItem/HistoryItem';
 
 const FullHistoryList = ({setIsOpened, items}) => {
@@ -6,9 +6,11 @@ const FullHistoryList = ({setIsOpened, items}) => {
 
   for(let item in items) {
     const newElem =
-      <ul className="full-history__list">
-        <div className="full-history-date">{item}</div>
-        {items[item].map(({id, ...props}) => <HistoryItem key={id} {...props}/>)}
+      <ul className={styles.item}>
+        <div className={styles.date}>{item}</div>
+        <ul className={styles.list}>
+          {items[item].map(({id, ...props}) => <HistoryItem key={id} {...props}/>)}
+        </ul>
       </ul>;
       
     elementsList.push(newElem);
@@ -17,9 +19,9 @@ const FullHistoryList = ({setIsOpened, items}) => {
   elementsList.reverse();
 
   return (
-    <div className="full-history">
-      <button className="full-history__close" onClick={() => setIsOpened(false)}>Close</button>
-      <div className="full-history__container">
+    <div className={styles.wrapper}>
+      <button className={styles.close} onClick={() => setIsOpened(false)}>Close</button>
+      <div className={styles.items}>
         {elementsList}
       </div>
     </div>

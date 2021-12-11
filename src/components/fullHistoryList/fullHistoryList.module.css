@@ -1,0 +1,39 @@
+.wrapper {
+  padding: 2rem;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 1.5rem;
+}
+
+.close {
+  align-self: flex-end;
+  border: none;
+  outline: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 40px;
+  background-color: hsl(16, 100%, 75%);
+  font-size: 1.6rem;
+  color: hsl(0, 0%, 100%);
+  cursor: pointer;
+}
+
+.items {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  height: 90%;
+  overflow-y: scroll;
+}
+
+.list {
+  list-style: none;
+  padding: 0 1rem;
+}
+
+.date {
+  font-size: 2rem;
+  color: hsl(16, 100%, 75%);
+}

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './historyPreview.module.css';
 import Spinner from '../spinner/Spinner';
 import HistoryItem from '../historyItem/HistoryItem';
@@ -7,6 +7,13 @@ import FullHistoryList from '../fullHistoryList/FullHistoryList';
 const HistoryPreview = ({items}) => {
   const [isFullHistoryOpened, setIsFullHistoryOpened] = useState(false);
 
+  useEffect(() => {
+    if (isFullHistoryOpened) {
+      document.body.style = 'overflow: hidden;';
+    } else {
+      document.body.style = 'overflow: auto;';
+    }
+  });
   let elementsList = [];
   let isFullHistoryBtnHidden = true;
 
@@ -44,9 +51,12 @@ const HistoryPreview = ({items}) => {
       </div>
       {!items ? <Spinner/> : <View itemsList={elementsList}/>}
       {isFullHistoryOpened ?
-        <div className={styles['full-list']}>
-          <FullHistoryList setIsOpened={setIsFullHistoryOpened} items={items}/>
-        </div>
+        <>
+          <div className={styles.backdrop} onClick={() => setIsFullHistoryOpened(false)}></div>
+          <div className={styles['full-list']}>
+            <FullHistoryList setIsOpened={setIsFullHistoryOpened} items={items}/>
+          </div>
+        </>
         : null}
     </div>
   );
